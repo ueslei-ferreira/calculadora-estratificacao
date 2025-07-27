@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Validação de CPF</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f1f1f1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      width: 200px;
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #022e6d;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0348a0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Digite seu CPF</h2>
+    <input type="text" id="cpf" placeholder="Apenas números" maxlength="11" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+    <br>
+    <button onclick="validarCPF()">Entrar</button>
+  </div>
+
+  <script>
+    function validarCPF() {
+      const cpf = document.getElementById('cpf').value;
+
+      if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) {
+        alert("CPF inválido.");
+        return;
+      }
+
+      // Validação matemática do CPF
+      let soma = 0;
+      for (let i = 0; i < 9; i++) {
+        soma += parseInt(cpf.charAt(i)) * (10 - i);
+      }
+      let dig1 = 11 - (soma % 11);
+      if (dig1 > 9) dig1 = 0;
+      if (dig1 !== parseInt(cpf.charAt(9))) {
+        alert("CPF inválido.");
+        return;
+      }
+
+      soma = 0;
+      for (let i = 0; i < 10; i++) {
+        soma += parseInt(cpf.charAt(i)) * (11 - i);
+      }
+      let dig2 = 11 - (soma % 11);
+      if (dig2 > 9) dig2 = 0;
+      if (dig2 !== parseInt(cpf.charAt(10))) {
+        alert("CPF inválido.");
+        return;
+      }
+
+      // Armazena no localStorage e redireciona
+      localStorage.setItem("cpfUsuario", cpf);
+      window.location.href = "estratificacao.html"; // altere para o nome do seu arquivo
+    }
+  </script>
+
+</body>
+</html>

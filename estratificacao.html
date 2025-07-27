@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <title>Estratificação DM Paraná</title>
+</head>
+<body>
+
+  <h2 >Estratificação - Diabetes Mellitus</h2>
+    <p id="texto-cabecalho">Quadro clínico do usuário</p>
+    <div class="question-container">
+    <h2>Classificação de pré-diabetes</h2>
+    <label><input type="radio" name="q1"> Glicemia de jejum alterada : ≥ 100 a &lt; 126mg/dl</label>
+    <label><input type="radio" name="q1"> Tolerância diminuída à glicose: teste oral de tolerância à glicose de 140 - 200 mg/dl na 2a hora.</label>
+    </div>
+
+    <div class="question-container">
+    <h2>Diagnóstico </h2>
+    <label><input type="radio" name="q2"> Diabetes mellitus tipo 2 (DM2) </label>
+    <label><input type="radio" name="q2"> Diabetes mellitus tipo 1 (DM1) </label>
+    </div>
+
+    <div class="question-container">
+    <h2>Classificação do controle metabólico</h2>
+    <label><input type="radio" name="q3"> Adequado: hemoglobina glicada ≤ 7% (considerar < 8% para idosos, pacientes menos motivados, não aderentes, com autoconhecimento limitado, pouca capacidade de autocuidado, fracos sistemas de apoio, e na dependência de considerações psicossocioeconômicas) 
+    </label>
+    <label><input type="radio" name="q3"> Inadequado: Hemoglobina glicada > 7% (considerar > 8% para idosos, pacientes menos motivados, não aderentes, com autoconhecimento limitado, pouca capacidade de autocuidado, fracos sistemas de apoio, e na dependência de considerações psicossocioeconômicas)</label>
+    </div>
+
+    <div class="question-container">
+    <h2>Classificação de controle pressórico </h2>
+    <label><input type="radio" name="q4"> Adequado: pressão arterial ≤ 130/80 mmHg </label>
+    <label><input type="radio" name="q4"> Inadequado: pressão arterial >130/80 mmHg </label>
+    <label><input type="radio" name="q4"> Síndrome hiperosmolar não cetótica</label>
+    </div>
+    
+    <div class="question-container">
+    <h2>Internação por complicação aguda </h2>
+    <label><input type="radio" name="q5"> Hipoglicemia </label>
+    <label><input type="radio" name="q5"> Cetoacidose </label>
+    <label><input type="radio" name="q5"> Síndrome hiperosmolar não cetótica </label>
+    </div>
+
+    <div class="question-container" id>
+      <h2>Complicação crônica </h2>
+        <div class="side-to-side">
+          
+          <div class="together">
+          <h3>Microangiopatia</h3>
+          <label><input type="radio" name="q6"> Retinopatia diabética </label>
+          <label><input type="radio" name="q6"> Doença renal diabética  </label>
+          <label><input type="radio" name="q6"> Insuficiência renal crônica  </label>
+          <label><input type="radio" name="q6"> Neuropatia Diabética  </label>
+          <label><input type="radio" name="q6"> Pé diabético  </label>
+          <label><input type="radio" name="q6"> Neuropatia sensitivo-motora  </label>
+          </div>
+
+          <div class="together">
+          <h3>Macroangiopatia </h3>
+          <label><input type="radio" name="q7"> Doença arterial coronariana </label>
+          <label><input type="radio" name="q7"> Acidente vascular encefálico </label>
+          <label><input type="radio" name="q7"> Doença vascular periférica  </label>
+          </div>
+        </div>
+    </div>
+  <div class="botao-container">
+  <button onclick="enviar()">Enviar Respostas</button>
+</div>
+
+  <script>
+    function enviar() {
+      const respostas = {};
+      for (let i = 1; i <= 2; i++) {
+        const selecionada = document.querySelector(`input[name="q${i}"]:checked`);
+        respostas[`Pergunta ${i}`] = selecionada ? selecionada.parentElement.textContent.trim() : 'Não respondida';
+      }
+      alert(JSON.stringify(respostas, null, 2));
+    }
+  </script>
+
+</body>
+</html>

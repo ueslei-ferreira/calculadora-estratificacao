@@ -1,0 +1,54 @@
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: white;
+      padding: 20px;
+      width: 60%;
+      margin: 0 auto;
+      font-size: small;
+      
+    }
+    .question-container {
+      padding: 20px;
+    }
+    h2 {
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+    label {
+      display: block;
+      margin: 8px 0;
+    }
+    button {
+      padding: 10px 15px;
+      background-color: #0b6efd;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    #texto-cabecalho {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Alinha verticalmente */
+    text-align: center;
+    font-size: medium;
+    background-color: #022e6d;
+    height: 30px;
+    color: #f3f3f3;
+    }
+    .side-to-side {
+        display: flex;
+        justify-content: center;
+        border-top: 2px solid #022e6d; /* Linha de 2px, preta */
+    }
+
+    .together{
+        width: 50%;
+    }
+    .botao-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px; /* Espaçamento opcional */
+  margin-bottom: 30px; /* Para não colar no rodapé se tiver */
+}
+
