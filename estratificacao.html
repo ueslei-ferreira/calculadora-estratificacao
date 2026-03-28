@@ -2,82 +2,140 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dados Clínicos - Estratificação DM2</title>
   <link rel="stylesheet" type="text/css" href="styles.css">
-  <title>Estratificação DM Paraná</title>
 </head>
 <body>
+  <div class="container">
+    <div class="form-container">
+      <h1>Estratificação de Risco em DM2</h1>
+      <p class="subtitle">Dados Clínicos</p>
 
-  <h2 >Estratificação - Diabetes Mellitus</h2>
-    <p id="texto-cabecalho">Quadro clínico do usuário</p>
-    <div class="question-container">
-    <h2>Classificação de pré-diabetes</h2>
-    <label><input type="radio" name="q1"> Glicemia de jejum alterada : ≥ 100 a &lt; 126mg/dl</label>
-    <label><input type="radio" name="q1"> Tolerância diminuída à glicose: teste oral de tolerância à glicose de 140 - 200 mg/dl na 2a hora.</label>
-    </div>
-
-    <div class="question-container">
-    <h2>Diagnóstico </h2>
-    <label><input type="radio" name="q2"> Diabetes mellitus tipo 2 (DM2) </label>
-    <label><input type="radio" name="q2"> Diabetes mellitus tipo 1 (DM1) </label>
-    </div>
-
-    <div class="question-container">
-    <h2>Classificação do controle metabólico</h2>
-    <label><input type="radio" name="q3"> Adequado: hemoglobina glicada ≤ 7% (considerar < 8% para idosos, pacientes menos motivados, não aderentes, com autoconhecimento limitado, pouca capacidade de autocuidado, fracos sistemas de apoio, e na dependência de considerações psicossocioeconômicas) 
-    </label>
-    <label><input type="radio" name="q3"> Inadequado: Hemoglobina glicada > 7% (considerar > 8% para idosos, pacientes menos motivados, não aderentes, com autoconhecimento limitado, pouca capacidade de autocuidado, fracos sistemas de apoio, e na dependência de considerações psicossocioeconômicas)</label>
-    </div>
-
-    <div class="question-container">
-    <h2>Classificação de controle pressórico </h2>
-    <label><input type="radio" name="q4"> Adequado: pressão arterial ≤ 130/80 mmHg </label>
-    <label><input type="radio" name="q4"> Inadequado: pressão arterial >130/80 mmHg </label>
-    <label><input type="radio" name="q4"> Síndrome hiperosmolar não cetótica</label>
-    </div>
-    
-    <div class="question-container">
-    <h2>Internação por complicação aguda </h2>
-    <label><input type="radio" name="q5"> Hipoglicemia </label>
-    <label><input type="radio" name="q5"> Cetoacidose </label>
-    <label><input type="radio" name="q5"> Síndrome hiperosmolar não cetótica </label>
-    </div>
-
-    <div class="question-container" id>
-      <h2>Complicação crônica </h2>
-        <div class="side-to-side">
-          
-          <div class="together">
-          <h3>Microangiopatia</h3>
-          <label><input type="radio" name="q6"> Retinopatia diabética </label>
-          <label><input type="radio" name="q6"> Doença renal diabética  </label>
-          <label><input type="radio" name="q6"> Insuficiência renal crônica  </label>
-          <label><input type="radio" name="q6"> Neuropatia Diabética  </label>
-          <label><input type="radio" name="q6"> Pé diabético  </label>
-          <label><input type="radio" name="q6"> Neuropatia sensitivo-motora  </label>
+      <form id="dadosClinicosForm">
+        
+        <!-- CONTROLE METABÓLICO -->
+        <section class="section">
+          <h2>Controle Metabólico (HbA1c)</h2>
+          <div class="form-group">
+            <label for="hba1c">HbA1c (%) *</label>
+            <input type="number" id="hba1c" step="0.1" min="0" max="15" placeholder="Ex: 7.5" required>
+            <small id="hba1cClassificacao" class="classificacao"></small>
           </div>
+        </section>
 
-          <div class="together">
-          <h3>Macroangiopatia </h3>
-          <label><input type="radio" name="q7"> Doença arterial coronariana </label>
-          <label><input type="radio" name="q7"> Acidente vascular encefálico </label>
-          <label><input type="radio" name="q7"> Doença vascular periférica  </label>
+        <!-- CONTROLE PRESSÓRICO -->
+        <section class="section">
+          <h2>Controle Pressórico</h2>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="pas">PAS (mmHg) *</label>
+              <input type="number" id="pas" min="0" max="300" placeholder="Ex: 130" required>
+            </div>
+            <div class="form-group">
+              <label for="pad">PAD (mmHg) *</label>
+              <input type="number" id="pad" min="0" max="200" placeholder="Ex: 80" required>
+            </div>
           </div>
+          <small id="paClassificacao" class="classificacao"></small>
+        </section>
+
+        <!-- DOENÇA CARDIOVASCULAR -->
+        <section class="section">
+          <h2>Doença Cardiovascular (DCV)</h2>
+          <div class="radio-group">
+            <label><input type="radio" name="dcv" value="baixo"> Ausente / Sem registro de DCV</label>
+            <label>
+              <input type="radio" name="dcv" value="medio"> Médio Risco: Doença aterosclerótica subclínica
+              <button type="button" class="info-btn" onclick="mostrarInfo('dcvMedio')">ℹ️</button>
+              <div id="dcvMedio" class="info-popup" style="display:none;">
+                <ul>
+                  <li>Placa carotídea (>1,5 mm)</li>
+                  <li>Placa aterosclerótica em angiotomografia</li>
+                  <li>Índice tornozelo-braquial < 0,9</li>
+                  <li>Aneurisma de aorta abdominal</li>
+                </ul>
+              </div>
+            </label>
+            <label>
+              <input type="radio" name="dcv" value="alto"> Alto Risco: DCV estabelecida
+              <button type="button" class="info-btn" onclick="mostrarInfo('dcvAlto')">ℹ️</button>
+              <div id="dcvAlto" class="info-popup" style="display:none;">
+                <ul>
+                  <li>Infarto do miocárdio</li>
+                  <li>Insuficiência cardíaca</li>
+                  <li>AVC</li>
+                  <li>Doença vascular periférica sintomática</li>
+                </ul>
+              </div>
+            </label>
+          </div>
+          <small id="dcvClassificacao" class="classificacao"></small>
+        </section>
+
+        <!-- RETINOPATIA -->
+        <section class="section">
+          <h2>Retinopatia</h2>
+          <div class="radio-group">
+            <label><input type="radio" name="retinopatia" value="baixo"> Ausente</label>
+            <label><input type="radio" name="retinopatia" value="medio"> Retinopatia não proliferativa leve (Médio risco)</label>
+            <label><input type="radio" name="retinopatia" value="alto"> Retinopatia moderada/severa, proliferativa ou edema macular (Alto risco)</label>
+          </div>
+          <small id="retinopatiClassificacao" class="classificacao"></small>
+        </section>
+
+        <!-- NEFROPATIA -->
+        <section class="section">
+          <h2>Nefropatia</h2>
+          <div class="radio-group">
+            <label><input type="radio" name="nefropatia" value="baixo"> Sem alteração</label>
+            <label>
+              <input type="radio" name="nefropatia" value="medio"> Microalbuminúria (Médio risco)
+              <input type="number" id="microalbuminuria" class="inline-input" placeholder="Valor mg/24h" style="display:none;">
+            </label>
+            <label>
+              <input type="radio" name="nefropatia" value="alto"> Macroalbuminúria (Alto risco)
+              <input type="number" id="macroalbuminuria" class="inline-input" placeholder="Valor mg/24h" style="display:none;">
+            </label>
+          </div>
+          <small id="nefropatiaClassificacao" class="classificacao"></small>
+        </section>
+
+        <!-- PÉ DIABÉTICO / NEUROPATIA -->
+        <section class="section">
+          <h2>Pé Diabético / Neuropatia</h2>
+          <div class="radio-group">
+            <label><input type="radio" name="peNeuropatia" value="baixo"> Sem neuropatia</label>
+            <label><input type="radio" name="peNeuropatia" value="medio"> Neuropatia periférica leve ou doença arterial periférica (Médio risco)</label>
+            <label><input type="radio" name="peNeuropatia" value="alto"> Úlcera prévia ou pé de Charcot (Alto risco)</label>
+          </div>
+          <small id="peNeuropatiaClassificacao" class="classificacao"></small>
+        </section>
+
+        <div class="button-group">
+          <button type="button" class="btn btn-secondary" onclick="voltar()">Voltar</button>
+          <button type="button" class="btn btn-primary" onclick="calcularRisco()">Calcular Risco</button>
         </div>
+      </form>
     </div>
-  <div class="botao-container">
-  <button onclick="enviar()">Enviar Respostas</button>
-</div>
+  </div>
 
+  <script src="script.js"></script>
   <script>
-    function enviar() {
-      const respostas = {};
-      for (let i = 1; i <= 2; i++) {
-        const selecionada = document.querySelector(`input[name="q${i}"]:checked`);
-        respostas[`Pergunta ${i}`] = selecionada ? selecionada.parentElement.textContent.trim() : 'Não respondida';
-      }
-      alert(JSON.stringify(respostas, null, 2));
+    // Monitorar mudanças nos campos para atualizar classificações em tempo real
+    document.getElementById('hba1c').addEventListener('change', atualizarClassificacaoHbA1c);
+    document.getElementById('pas').addEventListener('change', atualizarClassificacaoPA);
+    document.getElementById('pad').addEventListener('change', atualizarClassificacaoPA);
+    document.querySelectorAll('input[name="dcv"]').forEach(r => r.addEventListener('change', atualizarClassificacaoDCV));
+    document.querySelectorAll('input[name="retinopatia"]').forEach(r => r.addEventListener('change', atualizarClassificacaoRetinopatia));
+    document.querySelectorAll('input[name="nefropatia"]').forEach(r => r.addEventListener('change', atualizarClassificacaoNefropatia));
+    document.querySelectorAll('input[name="peNeuropatia"]').forEach(r => r.addEventListener('change', atualizarClassificacaoPeNeuropatia));
+
+    function mostrarInfo(id) {
+      event.preventDefault();
+      const el = document.getElementById(id);
+      el.style.display = el.style.display === 'none' ? 'block' : 'none';
     }
   </script>
-
 </body>
 </html>
