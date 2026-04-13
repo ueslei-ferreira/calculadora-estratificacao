@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dados Clínicos - Estratificação DM2</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="form-container">
+      <h1>Estratificação de Risco em DM2</h1>
+      <p class="subtitle">Dados Clínicos</p>
+
+      <form id="dadosClinicosForm">
+        
+        <!-- CONTROLE METABÓLICO -->
+        <section class="section">
+          <h2>Controle Metabólico (HbA1c)</h2>
+          <div class="form-group">
+            <label for="hba1c">HbA1c (%) *</label>
+            <input type="number" id="hba1c" step="0.1" min="0" max="15" placeholder="Ex: 7.5" required>
+          </div>
+        </section>
+
+        <!-- CONTROLE PRESSÓRICO -->
+        <section class="section">
+          <h2>Controle Pressórico</h2>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="pas">PAS (mmHg) *</label>
+              <input type="number" id="pas" min="0" max="300" placeholder="Ex: 130" required>
+            </div>
+            <div class="form-group">
+              <label for="pad">PAD (mmHg) *</label>
+              <input type="number" id="pad" min="0" max="200" placeholder="Ex: 80" required>
+            </div>
+          </div>
+        </section>
+
+        <!-- DOENÇA CARDIOVASCULAR -->
+        <section class="section">
+          <h2>Doença Cardiovascular (DCV)</h2>
+          <div class="radio-group">
+            <label><input type="radio" name="dcv" value="baixo"> Ausente / Sem registro de DCV</label>
+            <label>
+              <input type="radio" name="dcv" value="medio"> Doença aterosclerótica subclínica
+              <button type="button" class="info-btn" onclick="mostrarInfo('dcvMedio')">ℹ️</button>
+              <div id="dcvMedio" class="info-popup" style="display:none;">
+                <ul>
+                  <li>Placa carotídea (>1,5 mm)</li>
+                  <li>Placa aterosclerótica em angiotomografia</li>
+                  <li>Índice tornozelo-braquial &lt; 0,9</li>
+                  <li>Aneurisma de aorta abdominal</li>
+                </ul>
+              </div>
+            </label>
+            <label>
+              <input type="radio" name="dcv" value="alto"> DCV estabelecida
+              <button type="button" class="info-btn" onclick="mostrarInfo('dcvAlto')">ℹ️</button>
+              <div id="dcvAlto" class="info-popup" style="display:none;">
+                <ul>
+                  <li>Infarto do miocárdio</li>
+                  <li>Insuficiência cardíaca</li>
+                  <li>AVC</li>
+                  <li>Doença vascular periférica sintomática</li>
+                </ul>
+              </div>
+            </label>
+          </div>
+        </section>
+
+        <!-- RETINOPATIA -->
+        <section class="section">
+          <h2>Retinopatia</h2>
+          <div class="radio-group">
+            <label><input type="radio" name="retinopatia" value="baixo"> Ausente</label>
+            <label><input type="radio" name="retinopatia" value="medio"> Retinopatia não proliferativa leve</label>
+            <label><input type="radio" name="retinopatia" value="alto"> Retinopatia moderada/severa, proliferativa ou edema macular</label>
+          </div>
+        </section>
+
+        <!-- NEFROPATIA -->
+        <section class="section">
+          <h2>Nefropatia</h2>
+          <div class="radio-group">
+            <label><input type="radio" name="nefropatia" value="baixo"> Sem alteração</label>
+            <label>
+              <input type="radio" name="nefropatia" value="medio"> Microalbuminúria
+              <button type="button" class="info-btn" onclick="mostrarInfo('nefroMedio')">ℹ️</button>
+              <input type="number" id="microalbuminuria" class="inline-input" placeholder="Valor mg/24h" style="display:none;">
+              <div id="nefroMedio" class="info-popup" style="display:none;">
+                <ul>
+                  <li>Albuminúria entre 30–300 mg/24h</li>
+                  <li>Relação albumina/creatinina (RAC): 30–300 mg/g</li>
+                  <li>Indica nefropatia diabética incipiente</li>
+                </ul>
+              </div>
+            </label>
+            <label>
+              <input type="radio" name="nefropatia" value="alto"> Macroalbuminúria
+              <button type="button" class="info-btn" onclick="mostrarInfo('nefroAlto')">ℹ️</button>
+              <input type="number" id="macroalbuminuria" class="inline-input" placeholder="Valor mg/24h" style="display:none;">
+              <div id="nefroAlto" class="info-popup" style="display:none;">
+                <ul>
+                  <li>Albuminúria &gt; 300 mg/24h</li>
+                  <li>Relação albumina/creatinina (RAC) &gt; 300 mg/g</li>
+                  <li>Indica nefropatia diabética estabelecida</li>
+                  <li>Avaliar TFG e encaminhamento para nefrologia</li>
+                </ul>
+              </div>
+            </label>
+          </div>
+        </section>
+
+        <!-- NEUROPATIA -->
+        <section class="section">
+          <h2>Neuropatia</h2>
+          <div class="radio-group">
+            <label><input type="radio" name="peNeuropatia" value="baixo"> Sem neuropatia</label>
+            <label><input type="radio" name="peNeuropatia" value="medio"> Neuropatia periférica leve ou doença arterial periférica</label>
+            <label><input type="radio" name="peNeuropatia" value="alto"> Úlcera prévia ou pé de Charcot</label>
+          </div>
+        </section>
+
+        <div class="button-group">
+          <button type="button" class="btn btn-secondary" onclick="voltar()">Voltar</button>
+          <button type="button" class="btn btn-primary" onclick="calcularRisco()">Calcular Risco</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    // Mostrar/ocultar inputs inline de albuminúria
+    document.querySelectorAll('input[name="nefropatia"]').forEach(r => {
+      r.addEventListener('change', function() {
+        document.getElementById('microalbuminuria').style.display = this.value === 'medio' ? 'inline-block' : 'none';
+        document.getElementById('macroalbuminuria').style.display = this.value === 'alto' ? 'inline-block' : 'none';
+      });
+    });
+
+    function mostrarInfo(id) {
+      event.preventDefault();
+      const el = document.getElementById(id);
+      el.style.display = el.style.display === 'none' ? 'block' : 'none';
+    }
+  </script>
+</body>
+</html>

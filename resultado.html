@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resultado - Estratificação DM2</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="result-container">
+      <h1>Estratificação de Risco em DM2</h1>
+      <p class="subtitle">Resultado da Avaliação</p>
+
+      <!-- CLASSIFICAÇÃO GLOBAL -->
+      <section class="result-section">
+        <h2>Classificação Global de Risco</h2>
+        <div id="riscoGlobal" class="risco-box"></div>
+      </section>
+
+      <!-- PACIENTE INFO -->
+      <section class="result-section">
+        <h2>Informações do Paciente</h2>
+        <div class="info-grid">
+          <div><strong>Nome:</strong> <span id="resultNome">-</span></div>
+          <div><strong>CPF:</strong> <span id="resultCPF">-</span></div>
+          <div><strong>Data:</strong> <span id="resultData">-</span></div>
+          <div><strong>Profissional:</strong> <span id="resultProfissional">-</span></div>
+        </div>
+      </section>
+
+      <!-- RESUMO DOS CRITÉRIOS -->
+      <section class="result-section">
+        <h2>Resumo dos Critérios Identificados</h2>
+        <div class="criterios-list">
+          <div class="criterio-item">
+            <strong>HbA1c:</strong> <span id="critHba1c">-</span>
+          </div>
+          <div class="criterio-item">
+            <strong>Pressão Arterial:</strong> <span id="critPA">-</span>
+          </div>
+          <div class="criterio-item">
+            <strong>Doença Cardiovascular:</strong> <span id="critDCV">-</span>
+          </div>
+          <div class="criterio-item">
+            <strong>Retinopatia:</strong> <span id="critRetinopatia">-</span>
+          </div>
+          <div class="criterio-item">
+            <strong>Nefropatia:</strong> <span id="critNefropatia">-</span>
+          </div>
+          <div class="criterio-item">
+            <strong>Neuropatia:</strong> <span id="critPeNeuropatia">-</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- PERIODICIDADE -->
+      <section class="result-section">
+        <h2>Periodicidade de Acompanhamento Recomendada</h2>
+        <div id="periodicidade" class="periodicidade-box"></div>
+      </section>
+
+      <!-- RECOMENDAÇÕES -->
+      <section class="result-section">
+        <h2>Recomendações</h2>
+        <div id="recomendacoes" class="recomendacoes-box"></div>
+      </section>
+
+      <!-- EXAMES E AVALIAÇÕES - BLOCO FIXO COLAPSÁVEL -->
+      <section class="result-section">
+        <button type="button" class="collapsible-header" onclick="toggleExames()">
+          <h2 style="margin:0; border:none; padding:0;">Exames e Avaliações Preconizadas</h2>
+          <span id="examesIcon" class="collapsible-icon">▼</span>
+        </button>
+        <div id="examesContent" class="exames-box" style="display:none;">
+          <ul class="exames-list">
+            <li><strong>Glicemia em jejum e HbA1c:</strong> a cada 6 meses ou conforme critério clínico</li>
+            <li><strong>Colesterol total, triglicerídeos, HDL, creatinina sérica e albuminúria/RAC:</strong> no diagnóstico e anualmente, ou conforme critério clínico</li>
+            <li><strong>Fundoscopia/retinografia:</strong> no diagnóstico e anualmente, ou conforme grau de alteração</li>
+            <li><strong>Avaliação completa dos pés:</strong> no diagnóstico e anualmente; se alterada, conforme critério clínico</li>
+            <li><strong>IVCF-20 no PEC e-SUS APS:</strong> quando aplicável, conforme rotina do serviço (pessoa idosa)</li>
+            <li><strong>Avaliação do risco cardiovascular:</strong> investigar sintomas cardiovasculares em todas as consultas</li>
+            <li><strong>Avaliação psicológica:</strong> quando houver sinais e sintomas que interfiram na vida diária</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- BOTÕES -->
+      <div class="button-group">
+        <button type="button" class="btn btn-secondary" onclick="novaAvaliacao()">Nova Avaliação</button>
+        <button type="button" class="btn btn-primary" onclick="exportarPDF()">Exportar PDF</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      mostrarResultado();
+    });
+
+    function toggleExames() {
+      const content = document.getElementById('examesContent');
+      const icon = document.getElementById('examesIcon');
+      if (content.style.display === 'none') {
+        content.style.display = 'block';
+        icon.textContent = '▲';
+      } else {
+        content.style.display = 'none';
+        icon.textContent = '▼';
+      }
+    }
+
+  </script>
+</body>
+</html>
