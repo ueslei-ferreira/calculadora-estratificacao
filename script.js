@@ -251,6 +251,9 @@ function exportarPDF() {
     if (examesIcon) examesIcon.textContent = '▲';
   }
 
+  const buttonGroup = document.querySelector('.button-group');
+  if (buttonGroup) buttonGroup.style.display = 'none';
+
   window.scrollTo(0, 0);
 
   setTimeout(function() {
@@ -282,6 +285,7 @@ function exportarPDF() {
       .from(elemento)
       .save()
       .then(function() {
+        if (buttonGroup) buttonGroup.style.display = '';
         if (wasHidden) {
           examesContent.style.display = 'none';
           if (examesIcon) examesIcon.textContent = '▼';
@@ -289,6 +293,7 @@ function exportarPDF() {
       })
       .catch(function(err) {
         console.error('Erro ao gerar PDF:', err);
+        if (buttonGroup) buttonGroup.style.display = '';
         if (wasHidden) {
           examesContent.style.display = 'none';
           if (examesIcon) examesIcon.textContent = '▼';
